@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 20px; /* чтобы контент не прилипал к краям */
+
+  font-family: sans-serif;
+}
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 60px; /* отступ сверху */
+}
+
+.form {
+  display: flex;
+  gap: 12px;
+  padding: 24px;
+  background-color: #cfe4fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+}
