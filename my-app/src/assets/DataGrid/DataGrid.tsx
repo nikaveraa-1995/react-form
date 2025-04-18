@@ -16,16 +16,15 @@ import {
 import {
   DocumentRegular,
   EditRegular,
-  OpenRegular,
   FolderRegular,
   DeleteRegular,
   SaveRegular,
   VideoRegular,
-  PeopleRegular,
   DocumentPdfRegular,
   ImageRegular,
 } from '@fluentui/react-icons';
 import type { PresenceBadgeStatus } from '@fluentui/react-components';
+import './DataGrid.css';
 
 const initialItems = [
   {
@@ -38,25 +37,19 @@ const initialItems = [
     file: { label: 'Thursday presentation', icon: <FolderRegular /> },
     author: { label: 'Erika Mustermann', status: 'busy' },
     lastUpdated: { label: 'Yesterday at 1:45 PM', timestamp: 2 },
-    lastUpdate: { label: 'You recently opened this', icon: <OpenRegular /> },
+    lastUpdate: { label: 'You edited this', icon: <EditRegular /> },
   },
   {
     file: { label: 'Training recording', icon: <VideoRegular /> },
     author: { label: 'John Doe', status: 'away' },
     lastUpdated: { label: 'Yesterday at 1:45 PM', timestamp: 2 },
-    lastUpdate: {
-      label: 'You recently opened this',
-      icon: <OpenRegular />,
-    },
+    lastUpdate: { label: 'You edited this', icon: <EditRegular /> },
   },
   {
     file: { label: 'Purchase order', icon: <DocumentPdfRegular /> },
     author: { label: 'Jane Doe', status: 'offline' },
     lastUpdated: { label: 'Tue at 9:30 AM', timestamp: 3 },
-    lastUpdate: {
-      label: 'You shared this in a Teams chat',
-      icon: <PeopleRegular />,
-    },
+    lastUpdate: { label: 'You edited this', icon: <EditRegular /> },
   },
 ];
 
@@ -154,7 +147,8 @@ export const FocusableElementsInCells = () => {
         timestamp: Date.now(),
       },
       lastUpdate: {
-        ...updatedItems[editIndex].lastUpdate,
+        label: 'You edited this',
+        icon: <EditRegular />,
       },
     };
     setItems(updatedItems);
@@ -164,7 +158,7 @@ export const FocusableElementsInCells = () => {
   return (
     <div>
       <div className="form-wrapper">
-        <form className="form">
+        <form className="form-table">
           <Table
             {...keyboardNavAttr}
             role="grid"
@@ -309,10 +303,9 @@ export const FocusableElementsInCells = () => {
               })}
             </TableBody>
           </Table>
+          <Button onClick={handleAddRow}>+ Add Row</Button>
         </form>
       </div>
-
-      <Button onClick={handleAddRow}>+ Add Row</Button>
     </div>
   );
 };
