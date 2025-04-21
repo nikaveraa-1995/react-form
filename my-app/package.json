@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fluentui/react-calendar-compat": "^0.2.5",
     "@fluentui/react-components": "^9.61.6",
+    "firebase": "^11.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

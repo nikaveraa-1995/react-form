@@ -24,7 +24,16 @@ import {
   ImageRegular,
 } from '@fluentui/react-icons';
 import type { PresenceBadgeStatus } from '@fluentui/react-components';
+import { db } from '../../Service/firebaseConfig';
+import { ref, set, remove, onValue } from 'firebase/database';
 import './DataGrid.css';
+
+interface FirebaseItem {
+  file: string;
+  author: string;
+  lastUpdated: string;
+  lastUpdate: string;
+}
 
 const initialItems = [
   {
@@ -65,6 +74,22 @@ export const FocusableElementsInCells = () => {
   const focusableGroupAttr = useFocusableGroup({
     tabBehavior: 'limited-trap-focus',
   });
+
+  React.useEffect(() => {
+    const itemsRef = ref(db, 'items');
+    onValue(itemsRef, snapshot => {
+      const data = snapshot.val() as Record<string, FirebaseItem> | null;
+      if (!data) return;
+
+      const loadedItems = Object.values(data).map(item => ({
+        file: { label: item.file, icon: getFileIcon(item.file) },
+        author: { label: item.author, status: 'available' },
+        lastUpdated: { label: item.lastUpdated, timestamp: Date.now() },
+        lastUpdate: { label: item.lastUpdate, icon: <EditRegular /> },
+      }));
+      setItems(loadedItems);
+    });
+  }, []);
 
   const [items, setItems] = React.useState(initialItems);
   const [editIndex, setEditIndex] = React.useState<number | null>(null);
@@ -112,6 +137,7 @@ export const FocusableElementsInCells = () => {
 
   const handleDelete = (index: number) => {
     setItems(prev => prev.filter((_, i) => i !== index));
+    remove(ref(db, `items/${index}`));
   };
 
   const handleEdit = (index: number) => {
@@ -126,7 +152,7 @@ export const FocusableElementsInCells = () => {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (editIndex === null) return;
     const updatedItems = [...items];
     updatedItems[editIndex] = {
@@ -152,6 +178,15 @@ export const FocusableElementsInCells = () => {
       },
     };
     setItems(updatedItems);
+
+    const updatedItem = updatedItems[editIndex];
+    await set(ref(db, `items/${editIndex}`), {
+      file: updatedItem.file.label,
+      author: updatedItem.author.label,
+      lastUpdated: updatedItem.lastUpdated.label,
+      lastUpdate: updatedItem.lastUpdate.label,
+    });
+
     setEditIndex(null);
   };
 
