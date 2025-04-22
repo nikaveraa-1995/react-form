@@ -10,14 +10,18 @@ export const CalendarSixWeeks = () => {
 
   return (
     <>
-      <div>Selected date: {selectedDate?.toDateString() || 'Not set'}</div>
+      <div className="form-wrapper">
+        <div className="form">
+          <div>Selected date: {selectedDate?.toDateString() || 'Not set'}</div>
 
-      <Calendar
-        showSixWeeksByDefault
-        showGoToToday
-        onSelectDate={onSelectDate}
-        value={selectedDate}
-      />
+          <Calendar
+            showSixWeeksByDefault
+            showGoToToday
+            onSelectDate={onSelectDate}
+            value={selectedDate}
+          />
+        </div>
+      </div>
     </>
   );
 };

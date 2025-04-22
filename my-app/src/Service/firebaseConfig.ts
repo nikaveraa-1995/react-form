@@ -4,10 +4,10 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database'; // добавляем
 
 const firebaseConfig = {
-  apiKey: `${process.env.REACT_APP_API_KEY}`,
+  apiKey: import.meta.env.VITE_API_KEY,
   authDomain: 'reakt-form.firebaseapp.com',
   projectId: 'reakt-form',
-  databaseURL: `${process.env.REACT_APP_API_URL}`,
+  databaseURL: import.meta.env.VITE_API_URL,
   storageBucket: 'reakt-form.appspot.com', // исправила здесь на правильный адрес
   messagingSenderId: '481078524373',
   appId: '1:481078524373:web:337b3dd224aaa478cde55c',

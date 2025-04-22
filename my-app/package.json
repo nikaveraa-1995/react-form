@@ -14,7 +14,8 @@
     "@fluentui/react-components": "^9.61.6",
     "firebase": "^11.6.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
